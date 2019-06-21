@@ -31,8 +31,6 @@ class BookingController extends AbstractController
     public function create(MessageBusInterface $messageBus, $name)
     {
         $messageBus->dispatch(new CreateBookingMessage($name));
-        return $this->json([
-            'success' => 'creating new booking with name '.$name,
-        ]);
+        return $this->redirectToRoute('booking_list');
     }
 }

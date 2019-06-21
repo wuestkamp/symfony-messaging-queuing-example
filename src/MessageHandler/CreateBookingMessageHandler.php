@@ -18,6 +18,7 @@ class CreateBookingMessageHandler implements MessageHandlerInterface
 
     public function __invoke(CreateBookingMessage $bookingMessage)
     {
+        sleep(5); // I know!
         $booking = new Booking($bookingMessage->getName());
         $this->bookingRepository->save($booking);
     }
