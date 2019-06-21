@@ -30,8 +30,7 @@ class BookingController extends AbstractController
     {
         $booking = new Booking($name);
         $bookingRepository->save($booking);
-        return $this->json([
-            'success' => 'created a new booking with name '.$name,
-        ]);
+
+        return $this->redirectToRoute('booking_list');
     }
 }
