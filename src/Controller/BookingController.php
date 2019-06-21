@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BookingController extends AbstractController
 {
     /**
-     * @Route("/", name="booking_list")
+     * @Route("/bookings", name="booking_list")
      */
     public function index(BookingRepository $bookingRepository)
     {
@@ -24,7 +24,7 @@ class BookingController extends AbstractController
     }
 
     /**
-     * @Route("/create/{name}", name="booking_create")
+     * @Route("/bookings/create/{name}", name="booking_create")
      */
     public function create(BookingRepository $bookingRepository, $name)
     {
