@@ -11,6 +11,10 @@ bin/console doctrine:fixtures:load -n
 bin/console server:run
 ```
 
+Then to start the worker/runner:
+
+`bin/console messenger:consume`
+
 
 Kim Wüstkamp
 www.wuestkamp.com
