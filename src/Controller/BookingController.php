@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Booking;
 use App\Message\CreateBookingMessage;
 use App\Repository\BookingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
