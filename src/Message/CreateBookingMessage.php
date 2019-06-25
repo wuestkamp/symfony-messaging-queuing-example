@@ -4,15 +4,21 @@ namespace App\Message;
 
 class CreateBookingMessage
 {
-    private $name;
+    /**
+     * @var int
+     */
+    private $bookingId;
 
-    public function __construct(string $name)
+    public function __construct(int $bookingId)
     {
-        $this->name = $name;
+        $this->bookingId = $bookingId;
     }
 
-    public function getName(): string
+    /**
+     * @return int
+     */
+    public function getBookingId(): int
     {
-        return $this->name;
+        return $this->bookingId;
     }
 }

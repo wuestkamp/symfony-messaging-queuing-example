@@ -14,6 +14,10 @@ class AppFixtures extends Fixture
         $b2 = new Booking('another');
         $b3 = new Booking('good-trip');
 
+        $b1->setStatus(Booking::STATUS_CREATED);
+        $b2->setStatus(Booking::STATUS_CREATED);
+        $b3->setStatus(Booking::STATUS_CREATED);
+
         $manager->persist($b1);
         $manager->persist($b2);
         $manager->persist($b3);

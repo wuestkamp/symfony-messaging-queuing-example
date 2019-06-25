@@ -9,6 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Booking
 {
+    const STATUS_NEW = 'new';
+    const STATUS_CREATED = 'created';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -17,13 +20,23 @@ class Booking
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $status;
+
     public function __construct(string $name)
     {
         $this->name = $name;
+        $this->status = self::STATUS_NEW;
     }
 
     public function getId(): ?int
@@ -31,15 +44,35 @@ class Booking
         return $this->id;
     }
 
-    public function getName(): ?string
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName(?string $name): self
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
     {
         $this->name = $name;
+    }
 
-        return $this;
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus(string $status): void
+    {
+        $this->status = $status;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Booking;
 use App\Message\CreateBookingMessage;
 use App\Repository\BookingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +19,10 @@ class BookingController extends AbstractController
         $data = [];
 
         foreach ($bookingRepository->findAll() as $booking) {
-            $data[$booking->getId()] = $booking->getName();
+            $data[$booking->getId()] = [
+                'name' => $booking->getName(),
+                'status' => $booking->getStatus(),
+            ];
         }
 
         return $this->json($data);
@@ -27,9 +31,11 @@ class BookingController extends AbstractController
     /**
      * @Route("/bookings/create/{name}", name="booking_create")
      */
-    public function create(MessageBusInterface $messageBus, $name)
+    public function create(MessageBusInterface $messageBus, BookingRepository $bookingRepository, $name)
     {
-        $messageBus->dispatch(new CreateBookingMessage($name));
+        $booking = new Booking($name);
+        $bookingRepository->save($booking);
+        $messageBus->dispatch(new CreateBookingMessage($booking->getId()));
         return $this->redirectToRoute('booking_list');
     }
 }
