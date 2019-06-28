@@ -1,28 +1,27 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\MessageHandler;
 
 use App\Entity\Booking;
 use App\Message\CreateBookingMessage;
-use App\Repository\BookingRepository;
+use App\Service\BookingManager;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 class CreateBookingMessageHandler implements MessageHandlerInterface
 {
-    private $bookingRepository;
+    private $bookingManager;
 
-    public function __construct(BookingRepository $bookingRepository)
+    public function __construct(BookingManager $bookingManager)
     {
-        $this->bookingRepository = $bookingRepository;
+        $this->bookingManager = $bookingManager;
     }
 
     public function __invoke(CreateBookingMessage $bookingMessage)
     {
-        sleep(5); // this action takes long!
+        $booking = $this->bookingManager->findBooking($bookingMessage->getBookingId());
 
-        /** @var Booking $booking */
-        $booking = $this->bookingRepository->findOneById($bookingMessage->getBookingId());
-        $booking->setStatus(Booking::STATUS_CREATED);
-        $this->bookingRepository->save($booking);
+        if ($booking instanceof Booking && $booking->getStatus() === Booking::STATUS_NEW) {
+            $this->bookingManager->processBooking($booking);
+        }
     }
 }
