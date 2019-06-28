@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Tests\Integration;
 
@@ -30,11 +30,10 @@ class DatabaseCleaner
         $schemaTool->dropSchema($metadatas);
         $schemaTool->createSchema($metadatas);
 
-        // clear existing messenger doctrine transport messages
         $em = $kernel->getContainer()->get('doctrine')->getManager();
-        $conn = $em->getConnection();
-        $sql = 'DELETE FROM messenger_messages';
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
+        $query = 'drop table if exists messenger_messages';
+        $statement = $em->getConnection()->prepare($query);
+        $statement->execute();
+        $statement->fetchAll();
     }
 }
