@@ -2,11 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Booking;
-use App\Message\CreateBookingMessage;
 use App\Repository\BookingRepository;
+use App\Service\BookingManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BookingController extends AbstractController
@@ -31,11 +29,9 @@ class BookingController extends AbstractController
     /**
      * @Route("/bookings/create/{name}", name="booking_create")
      */
-    public function create(MessageBusInterface $messageBus, BookingRepository $bookingRepository, $name)
+    public function create(BookingManager $bookingManager, $name)
     {
-        $booking = new Booking($name);
-        $bookingRepository->save($booking);
-        $messageBus->dispatch(new CreateBookingMessage($booking->getId()));
+        $bookingManager->createBooking($name);
         return $this->redirectToRoute('booking_list');
     }
 }
