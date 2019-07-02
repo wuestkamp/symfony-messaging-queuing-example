@@ -36,7 +36,8 @@ class CreateBookingMessageHandlerTest extends TestCase
             ->with($booking->getId())
             ->willReturn($booking)
         ;
-        // we also expect the save method to be called on the $bookingManagerMock
+
+        // we expect the processBooking method to be called on the $bookingManagerMock
         $bookingManagerMock->expects($this->once())->method('processBooking')->with($booking);
 
         $this->assertEquals(Booking::STATUS_NEW, $booking->getStatus());
@@ -76,7 +77,7 @@ class CreateBookingMessageHandlerTest extends TestCase
             ->with($booking->getId())
             ->willReturn($booking)
         ;
-        // we also expect the save method to be called on the $bookingManagerMock
+        // we do NOT expect the processBooking method to be called on the $bookingManagerMock
         $bookingManagerMock->expects($this->never())->method('processBooking')->with($booking);
 
         $this->assertEquals(Booking::STATUS_CREATED, $booking->getStatus());
