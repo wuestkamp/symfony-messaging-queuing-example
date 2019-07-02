@@ -29,6 +29,5 @@ setup like with branch step1, then run the worker:
 ``bin/console messenger:consume``
 
 
-
 Kim Wüstkamp
 www.wuestkamp.com
