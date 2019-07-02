@@ -1,4 +1,9 @@
-This project belongs to Medium article: TODO
+# branch step1
+simple booking API using messenges from Symfony Messenger
+
+This step belongs to Medium article:
+https://medium.com/faun/say-yes-to-the-symfony4-messenger-queue-f6a4fe16ee4
+
 
 This project uses sqlite DB in a file configured through .env
 
@@ -13,7 +18,16 @@ bin/console server:run
 
 Then to start the worker/runner:
 
-`bin/console messenger:consume`
+# branch step2
+Now we use an async doctrine messenger queue to create a booking.
+
+This step belongs to Medium article:
+https://medium.com/faun/say-yes-to-the-symfony4-messenger-queue-f6a4fe16ee4
+
+setup like with branch step1, then run the worker:
+
+``bin/console messenger:consume``
+
 
 
 Kim Wüstkamp
